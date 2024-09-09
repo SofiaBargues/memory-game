@@ -12,11 +12,23 @@ function Box({ text: text, onClick }: { text: number; onClick: () => void }) {
     </button>
   );
 }
+let arrBoxes = [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8];
+
+function shuffled(arr) {
+  const array = [...arr];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+arrBoxes = shuffled(arrBoxes);
+
 function App() {
-  const arrBoxes = [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8];
   const [indexCarta1, setIndexCarta1] = useState(null);
   const [indexCarta2, setIndexCarta2] = useState(null);
   const [adivinadas, setAdivinadas] = useState([]);
+
   const handleBoxClick = (index: number) => {
     if (indexCarta1 === null) {
       setIndexCarta1(index);
