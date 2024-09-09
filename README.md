@@ -7,12 +7,13 @@ Build a memory game using React. This challenge is suitable for beginners and in
 
 1. **Grid Layout:**
 
-   - Create a game board with a 4x4 or 5x5 grid of tiles.
+   - Create a game board with a 4x4 grid of tiles.
    - Each tile should be clickable and display a symbol or image.
 
 2. **Game Logic:**
 
    - Players should be able to click two tiles in an attempt to match them.
+   - Both tiles will be visible for 1 second.
    - If the tiles match, they should remain visible. If they don't match, they should flip back after a short delay.
    - The game continues until all pairs are successfully matched.
 
