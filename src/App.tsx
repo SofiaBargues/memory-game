@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 function Box({ text: text, onClick }: { text: number; onClick: () => void }) {
@@ -29,6 +29,29 @@ function App() {
   const [indexCarta2, setIndexCarta2] = useState(null);
   const [adivinadas, setAdivinadas] = useState([]);
 
+  useEffect(() => {
+    if (indexCarta2 != null) {
+      return;
+    }
+    // Use setTimeout to update the message after 2000 milliseconds (2 seconds)
+    if (
+      arrBoxes[indexCarta1] === arrBoxes[indexCarta2] &&
+      arrBoxes[indexCarta1] != null
+    ) {
+      setAdivinadas([...adivinadas, arrBoxes[indexCarta1]]);
+      setIndexCarta1(null);
+      setIndexCarta2(null);
+      return;
+    }
+    const timeoutId = setTimeout(() => {
+      setIndexCarta1(null);
+      setIndexCarta2(null);
+    }, 2000);
+
+    // Cleanup function to clear the timeout if the component unmounts
+    return () => clearTimeout(timeoutId);
+  }, [indexCarta2]); // Empty dependency array ensures the effect runs only once
+
   const handleBoxClick = (index: number) => {
     if (indexCarta1 === null) {
       setIndexCarta1(index);
@@ -52,23 +75,6 @@ function App() {
           />
         ))}
       </div>
-      <button
-        onClick={() => {
-          if (
-            arrBoxes[indexCarta1] === arrBoxes[indexCarta2] &&
-            arrBoxes[indexCarta1] != null
-          ) {
-            setAdivinadas([...adivinadas, arrBoxes[indexCarta1]]);
-            setIndexCarta1(null);
-            setIndexCarta2(null);
-          } else {
-            setIndexCarta1(null);
-            setIndexCarta2(null);
-          }
-        }}
-      >
-        checker
-      </button>
     </div>
   );
 }
