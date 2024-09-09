@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
-function Box({ text: text, onClick }: { text: number; onClick: () => void }) {
+function Box({ text, onClick }: { text: number; onClick: () => void }) {
   return (
     <button
       disabled={text ? true : false}
@@ -14,7 +14,7 @@ function Box({ text: text, onClick }: { text: number; onClick: () => void }) {
 }
 let arrBoxes = [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8];
 
-function shuffled(arr) {
+function shuffled(arr: number[]): number[] {
   const array = [...arr];
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -25,9 +25,9 @@ function shuffled(arr) {
 arrBoxes = shuffled(arrBoxes);
 
 function App() {
-  const [indexCarta1, setIndexCarta1] = useState(null);
-  const [indexCarta2, setIndexCarta2] = useState(null);
-  const [adivinadas, setAdivinadas] = useState([]);
+  const [indexCarta1, setIndexCarta1] = useState<number | null>(null);
+  const [indexCarta2, setIndexCarta2] = useState<number | null>(null);
+  const [adivinadas, setAdivinadas] = useState<number[]>([]);
 
   useEffect(() => {
     if (indexCarta2 === null) {
@@ -35,9 +35,12 @@ function App() {
     }
     // Use setTimeout to update the message after 2000 milliseconds (2 seconds)
     if (
+      // @ts-ignore
       arrBoxes[indexCarta1] === arrBoxes[indexCarta2] &&
-      arrBoxes[indexCarta1] != null
+      // @ts-ignore
+      arrBoxes[indexCarta1] !== null
     ) {
+      // @ts-ignore
       setAdivinadas([...adivinadas, arrBoxes[indexCarta1]]);
       setIndexCarta1(null);
       setIndexCarta2(null);
@@ -66,6 +69,7 @@ function App() {
         {arrBoxes.map((num, i) => (
           <Box
             key={i}
+            // @ts-ignore
             text={
               adivinadas.includes(num) || indexCarta1 === i || indexCarta2 === i
                 ? num
