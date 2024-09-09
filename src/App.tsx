@@ -30,7 +30,7 @@ function App() {
   const [adivinadas, setAdivinadas] = useState([]);
 
   useEffect(() => {
-    if (indexCarta2 != null) {
+    if (indexCarta2 === null) {
       return;
     }
     // Use setTimeout to update the message after 2000 milliseconds (2 seconds)
